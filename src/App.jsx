@@ -39,6 +39,16 @@ export const App = () => {
         setCart(updatedCart);
     }
 
+    function decreaseQuantity(id) {
+        const updatedCart = cart.map(item => {
+            if (item.id === id && item.quantity > 0) { // Limitar la cantidad minima a 1
+                return { ...item, quantity: item.quantity - 1 };
+            }
+            return item;
+        })
+        setCart(updatedCart);
+    }
+
 
     return (
         <>
@@ -46,6 +56,7 @@ export const App = () => {
                 cart={cart}
                 removeFromCart={removeFromCart}
                 increaseQuantity={increaseQuantity}
+                decreaseQuantity={decreaseQuantity}
             />
 
             <main className="container-xl mt-5">
