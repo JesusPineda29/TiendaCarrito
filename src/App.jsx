@@ -12,7 +12,6 @@ export const App = () => {
 
 
     const addToCart = (item) => {
-
         const existingItem = cart.findIndex((cartItem) => cartItem.id === item.id);
         if (existingItem >= 0) { // Verificar si el item ya existe en el carrito
             const updatedCart = [...cart]; // Crear una copia del carrito
@@ -27,7 +26,9 @@ export const App = () => {
 
     return (
         <>
-            <Header />
+            <Header 
+                cart={cart} 
+            />
 
             <main className="container-xl mt-5">
                 <h2 className="text-center">Nuestra Colección</h2>
