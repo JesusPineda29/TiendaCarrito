@@ -1,14 +1,13 @@
+import { useMemo } from "react";
 
-
-export const Header = ({ cart }) => {
+export const Header = ({ cart, removeFromCart, increaseQuantity }) => {
 
     // state Derivado
-    const isEmpty = () => cart.length === 0;
+    const isEmpty = useMemo( () => cart.length === 0, [cart] ); // USEMEMO
 
-    const cartTotal = () => cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    const cartTotal = useMemo(() => cart.reduce((total, item) => total + (item.price * item.quantity), 0),[cart]); // REDUCE
 
     return (
-        <>
             <header className="py-5 header">
                 <div className="container-xl">
                     <div className="row justify-content-center justify-content-md-between">
@@ -25,7 +24,7 @@ export const Header = ({ cart }) => {
 
                                 <div id="carrito" className="bg-white p-3">
 
-                                    {isEmpty() ? (
+                                    {isEmpty ? (
 
                                         <p className="text-center">El carrito esta vacio</p>
 
@@ -62,6 +61,7 @@ export const Header = ({ cart }) => {
                                                                 <button
                                                                     type="button"
                                                                     className="btn btn-dark"
+                                                                    onClick={() => increaseQuantity(guitarra.id)}
                                                                 >
                                                                     +
                                                                 </button>
@@ -70,6 +70,7 @@ export const Header = ({ cart }) => {
                                                                 <button
                                                                     className="btn btn-danger"
                                                                     type="button"
+                                                                    onClick={() => removeFromCart(guitarra.id)}
                                                                 >
                                                                     X
                                                                 </button>
@@ -81,7 +82,7 @@ export const Header = ({ cart }) => {
                                             </table>
 
 
-                                            <p className="text-end">Total pagar: <span className="fw-bold">${cartTotal()}</span></p>
+                                            <p className="text-end">Total pagar: <span className="fw-bold">${cartTotal}</span></p>
                                         </>
                                     )}
 
@@ -92,6 +93,5 @@ export const Header = ({ cart }) => {
                     </div>
                 </div>
             </header>
-        </>
     )
 }

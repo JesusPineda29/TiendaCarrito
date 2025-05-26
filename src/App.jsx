@@ -12,10 +12,11 @@ export const App = () => {
 
 
     const addToCart = (item) => {
-        const existingItem = cart.findIndex((cartItem) => cartItem.id === item.id);
-        if (existingItem >= 0) { // Verificar si el item ya existe en el carrito
+        const itemExist = cart.findIndex(cartItem => cartItem.id === item.id);
+        if (itemExist >= 0) { // Verificar si el item ya existe en el carrito
             const updatedCart = [...cart]; // Crear una copia del carrito
-            updatedCart[existingItem].quantity += 1; // Incrementar la cantidad del item existente
+            updatedCart[itemExist].quantity++; // Incrementar la cantidad del item existente
+            setCart(updatedCart); // Actualizar el estado del carrito
         } else {
             item.quantity = 1; // Asignar una cantidad inicial de 1
             setCart([...cart, item]);
@@ -23,11 +24,28 @@ export const App = () => {
     }
 
 
+    function removeFromCart(id) {
+        setCart(prevCart => prevCart.filter(guitar => guitar.id !== id));
+    }
+
+
+    function increaseQuantity(id) {
+        const updatedCart = cart.map(item => {
+            if (item.id === id && item.quantity < 5) { // Limitar la cantidad máxima a 5
+                return { ...item, quantity: item.quantity + 1 };
+            }
+            return item;
+        })
+        setCart(updatedCart);
+    }
+
 
     return (
         <>
-            <Header 
-                cart={cart} 
+            <Header
+                cart={cart}
+                removeFromCart={removeFromCart}
+                increaseQuantity={increaseQuantity}
             />
 
             <main className="container-xl mt-5">
