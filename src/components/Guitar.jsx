@@ -1,11 +1,10 @@
 
 
+export const Guitar = ({gui, addToCart}) => {
+
+const { id, name, image, description, price } = gui;
 
 
-export const Guitar = ({guitar}) => {
-
-const { id, name, image, description, price } = guitar;
-    
     return (
         <>
             <div className="col-md-6 col-lg-4 my-4 row align-items-center">
@@ -19,9 +18,14 @@ const { id, name, image, description, price } = guitar;
                     <button
                         type="button"
                         className="btn btn-dark w-100 "
+                        onClick={() => addToCart(gui)}
                     >Agregar al Carrito</button>
                 </div>
             </div>
         </>
     )
 }
+
+
+
+

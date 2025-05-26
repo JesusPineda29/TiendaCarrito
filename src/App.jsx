@@ -7,7 +7,21 @@ import { db } from "./data/db"
 
 export const App = () => {
 
-    const [data, setData] = useState(db)
+    const [data, setData] = useState(db);
+    const [cart, setCart] = useState([]);
+
+
+    const addToCart = (item) => {
+
+        const existingItem = cart.findIndex((cartItem) => cartItem.id === item.id);
+        if (existingItem >= 0) { // Verificar si el item ya existe en el carrito
+            const updatedCart = [...cart]; // Crear una copia del carrito
+            updatedCart[existingItem].quantity += 1; // Incrementar la cantidad del item existente
+        } else {
+            item.quantity = 1; // Asignar una cantidad inicial de 1
+            setCart([...cart, item]);
+        }
+    }
 
 
 
@@ -20,12 +34,13 @@ export const App = () => {
 
                 <div className="row mt-5">
                     {data.map((guitar) => (
-                        <Guitar 
+                        <Guitar
                             key={guitar.id}
-                            guitar={guitar}                        
+                            gui={guitar}
+                            setCart={setCart}
+                            addToCart={addToCart}
                         />
                     ))}
-
                 </div>
             </main>
 
