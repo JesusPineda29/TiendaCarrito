@@ -3,7 +3,7 @@
 // van guardados en la carpeta hooks
 // solo deben tener logica, no debe tener vista, por eso en .js 
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import {db} from '../data/db.js';
 
 export const useCart = () => {
@@ -66,6 +66,19 @@ export const useCart = () => {
     }
 
 
+
+
+
+
+
+
+    // state Derivado
+    const isEmpty = useMemo( () => cart.length === 0, [cart] ); // USEMEMO
+
+    const cartTotal = useMemo(() => cart.reduce((total, item) => total + (item.price * item.quantity), 0),[cart]); // REDUCE
+
+
+
     return {
         data,
         cart,
@@ -73,7 +86,9 @@ export const useCart = () => {
         removeFromCart,
         increaseQuantity,
         decreaseQuantity,
-        clearCart
+        clearCart,
+        isEmpty,
+        cartTotal
     }
 }
 

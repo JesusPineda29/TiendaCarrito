@@ -8,7 +8,7 @@ import { useCart } from "./hooks/useCart"
 
 export const App = () => {
 
-    const { data, cart, addToCart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart } = useCart();
+    const { data, cart, addToCart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart, isEmpty, cartTotal } = useCart();
 
 
 
@@ -21,6 +21,8 @@ export const App = () => {
                 increaseQuantity={increaseQuantity}
                 decreaseQuantity={decreaseQuantity}
                 clearCart={clearCart}
+                isEmpty={isEmpty}
+                cartTotal={cartTotal}
             />
 
             <main className="container-xl mt-5">
